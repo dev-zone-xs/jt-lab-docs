@@ -10,7 +10,7 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // To match the URL structure on GitHub Pages
-  deploymentBranch: 'gh-pages',
+  deploymentBranch: 'main',
   trailingSlash: true,
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
