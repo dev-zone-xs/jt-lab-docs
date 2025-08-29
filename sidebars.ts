@@ -40,7 +40,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'JT-Trader',
       items: [
-        'jt-trader/getting-started',
+        'jt-trader/jt-trader-getting-started',
         'jt-trader/installation',
         'jt-trader/configuration',
         'jt-trader/usage',
