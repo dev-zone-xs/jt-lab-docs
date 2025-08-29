@@ -34,8 +34,8 @@ This documentation covers two powerful JavaScript libraries for algorithmic trad
 
 Choose your library to get started:
 
-- **[JT-Lib Getting Started](jt-lib/getting-started)** - For developers building custom trading solutions
-- **[JT-Trader Getting Started](jt-trader/jt-trader-getting-started)** - For traders and analysts
+- **[JT-Lib Getting Started](/docs/jt-lib/getting-started)** - For developers building custom trading solutions
+- **[JT-Trader Getting Started](/docs/jt-trader/jt-trader-getting-started)** - For traders and analysts
 
 ## Features
 
