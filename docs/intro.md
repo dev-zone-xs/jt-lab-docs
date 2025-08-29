@@ -2,7 +2,6 @@
 id: intro
 title: Introduction
 sidebar_label: Introduction
-slug: /
 ---
 
 # Welcome to JT-Lib & JT-Trader Documentation
