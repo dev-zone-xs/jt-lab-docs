@@ -11,7 +11,7 @@ const config: Config = {
 
   // To match the URL structure on GitHub Pages
   deploymentBranch: 'gh-pages',
-  trailingSlash: false,
+  trailingSlash: true,
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
