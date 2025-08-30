@@ -1,10 +1,10 @@
 ---
-id: api-specification
-title: API Specification
-sidebar_label: API Specification
+id: native-functions
+title: Native Functions
+sidebar_label: Native Functions
 ---
 
-# API Specification
+# Native Functions
 
 This document provides a comprehensive specification of the JT-Lib API for developing trading robots and strategies.
 

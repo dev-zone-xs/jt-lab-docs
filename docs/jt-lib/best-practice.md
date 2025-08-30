@@ -150,7 +150,7 @@ The system uses events and callbacks to handle market data and order changes eff
 ## Next Steps
 
 - **[Getting Started](/docs/jt-lib/getting-started)** - Learn the basics of using JT-Lib
-- **[API Specification](/docs/jt-lib/api-specification)** - Complete API reference
+- **[Native Functions](/docs/jt-lib/native-functions)** - Complete API reference
 - **[Overview](/docs/jt-lib/overview)** - General overview of JT-Lib components
 
 

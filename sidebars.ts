@@ -25,7 +25,7 @@ const sidebars: SidebarsConfig = {
         'jt-lib/getting-started',
         'jt-lib/script-execution',
         'jt-lib/best-practice',
-        'jt-lib/api-specification',
+        'jt-lib/native-functions',
         'jt-lib/base-script',
         'jt-lib/interfaces',
         'jt-lib/trading-api',

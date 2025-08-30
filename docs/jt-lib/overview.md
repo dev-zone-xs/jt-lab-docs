@@ -42,4 +42,4 @@ For more detailed descriptions of methods and interfaces, please refer to the do
 
 - **[Getting Started](/docs/jt-lib/getting-started)** - Learn the basics of using JT-Lib
 - **[Interfaces](/docs/jt-lib/interfaces)** - Detailed API documentation
-- **[API Specification](/docs/jt-lib/api-specification)** - Complete API reference
+- **[Native Functions](/docs/jt-lib/native-functions)** - Complete API reference

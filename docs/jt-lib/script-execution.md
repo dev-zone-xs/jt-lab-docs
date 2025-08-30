@@ -112,4 +112,4 @@ class MyStrategy extends Script {
 
 - **[Getting Started](/docs/jt-lib/getting-started)** - Learn the basics of using JT-Lib
 - **[Best Practices](/docs/jt-lib/best-practice)** - Best practices for script development
-- **[API Specification](/docs/jt-lib/api-specification)** - Complete API reference
+- **[Native Functions](/docs/jt-lib/native-functions)** - Complete API reference
