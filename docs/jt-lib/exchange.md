@@ -1,7 +1,7 @@
 ---
 id: exchange
-title: Exchange
-sidebar_label: Exchange
+title: _Exchange
+sidebar_label: _Exchange
 ---
 
 # Exchange
