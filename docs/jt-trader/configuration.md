@@ -1,7 +1,7 @@
 ---
 id: configuration
-title: Configuration
-sidebar_label: Configuration
+title: _Configuration
+sidebar_label: _Configuration
 ---
 
 # Configuration
