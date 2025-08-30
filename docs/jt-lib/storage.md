@@ -1,7 +1,7 @@
 ---
 id: storage
-title: Storage
-sidebar_label: Storage
+title: _Storage
+sidebar_label: _Storage
 ---
 
 # Storage
