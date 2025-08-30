@@ -25,9 +25,6 @@ JT Trader is dual-licensed:
 
 If you want to use JT Trader in a commercial product or SaaS solution, please contact us for pricing.
 
-## Dependencies
-
-To run the application, you need Node.js v18.x and [Redis](https://redis.io).
 
 ___
 
