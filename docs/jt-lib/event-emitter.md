@@ -1,7 +1,7 @@
 ---
 id: event-emitter
-title: Event Emitter
-sidebar_label: Event Emitter
+title: _Event Emitter
+sidebar_label: _Event Emitter
 ---
 
 # Event Emitter
