@@ -10,7 +10,6 @@ sidebar_label: Installation
 
 <!-- TOC -->
 * [License](#license)
-* [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Environment Setup](#environment-setup)
 * [Build and Run](#build-and-run)
