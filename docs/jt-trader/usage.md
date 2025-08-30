@@ -1,7 +1,7 @@
 ---
 id: usage
-title: Usage
-sidebar_label: Usage
+title: _Usage
+sidebar_label: _Usage
 ---
 
 # Usage
