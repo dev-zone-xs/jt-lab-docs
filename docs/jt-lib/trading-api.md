@@ -1,7 +1,7 @@
 ---
 id: trading-api
-title: Trading API
-sidebar_label: Trading API
+title: _Trading API
+sidebar_label: _Trading API
 ---
 
 # Trading API
