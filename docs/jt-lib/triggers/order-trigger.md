@@ -1,7 +1,7 @@
 ---
 id: order-trigger
-title: Order Trigger
-sidebar_label: Order Trigger
+title: _Order Trigger
+sidebar_label: _Order Trigger
 ---
 
 # Order Trigger
