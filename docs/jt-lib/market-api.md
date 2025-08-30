@@ -1,7 +1,7 @@
 ---
 id: market-api
-title: Market API
-sidebar_label: Market API
+title: _Market API
+sidebar_label: _Market API
 ---
 
 # Market API
