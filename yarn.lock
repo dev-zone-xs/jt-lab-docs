@@ -5133,11 +5133,6 @@ is-typedarray@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha512-cyA56iCMHAh5CdzjJIa4aohJyeO1YbwLi3Jc35MmRU6poroFjIGZzUzupGiRPOjgHg9TLu43xbpwXk523fMxKA==
 
-is-url@^1.0.0:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/is-url/-/is-url-1.2.4.tgz#04a4df46d28c4cff3d73d01ff06abeb318a1aa52"
-  integrity sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
-
 is-wsl@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-2.2.0.tgz#74a4c76e77ca9fd3f932f290c17ea326cd157271"
@@ -7531,17 +7526,6 @@ remark-gfm@^4.0.0, remark-gfm@^4.0.1:
     remark-parse "^11.0.0"
     remark-stringify "^11.0.0"
     unified "^11.0.0"
-
-remark-images@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/remark-images/-/remark-images-4.1.0.tgz#1653e54b3aaff881f6fdbacca79444feb21c8965"
-  integrity sha512-16D81wwqssfexLeYXTHiw05rEbvt7K0dOef8Fjx86hbTwPEHDgzt610Z2l0TDeybdU42M6szvQzf/PtmiQC/Pw==
-  dependencies:
-    "@types/mdast" "^4.0.0"
-    collapse-white-space "^2.0.0"
-    is-url "^1.0.0"
-    unist-util-position "^5.0.0"
-    unist-util-visit-parents "^6.0.0"
 
 remark-mdx@^3.0.0:
   version "3.1.0"

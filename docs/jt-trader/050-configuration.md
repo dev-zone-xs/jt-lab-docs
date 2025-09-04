@@ -1,7 +1,7 @@
 ---
-id: configuration
-title: _Configuration
-sidebar_label: _Configuration
+id: 050-configuration
+title: Configuration
+sidebar_label: Configuration
 ---
 
 # Configuration
