@@ -18,7 +18,7 @@ const sidebars: SidebarsConfig = {
     'intro',
     'installation',
     'quick-start',
-    'example',
+    'examples-guide',
     {
       type: 'category',
       label: 'JT-Lib',
@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
         'jt-lib/script-best-practices',
         'jt-lib/introduction-architecture',
         'jt-lib/core-fundamentals',
+        'jt-lib/error-handling',
         'jt-lib/events-system',
         'jt-lib/trading-scripts',
         'jt-lib/exchange-orders-basket',

@@ -562,7 +562,7 @@ const jsonData = JSON.stringify(reportData, null, 2);
 ### Пример 1: Базовый отчет торговой стратегии
 
 ```typescript
-class TradingStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Настройка отчета
     globals.report.setTitle('Trading Strategy Report');
@@ -609,7 +609,7 @@ class TradingStrategy extends BaseScript {
 ### Пример 2: Отчет с оптимизацией
 
 ```typescript
-class OptimizedStrategy extends BaseScript {
+class Script extends BaseScript {
   async onStop() {
     // Добавление параметров оптимизации
     globals.report.optimizedSetValue('profit', this.totalProfit, 'max');
@@ -635,7 +635,7 @@ class OptimizedStrategy extends BaseScript {
 ### Пример 3: Интерактивный отчет
 
 ```typescript
-class InteractiveStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Создание кнопок управления
     globals.report.createActionButton('Start Trading', 'startTrading', '');

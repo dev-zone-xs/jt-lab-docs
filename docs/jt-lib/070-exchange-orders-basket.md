@@ -43,7 +43,7 @@ const ordersBasket = new OrdersBasket({
 
 **Параметры:**
 - `symbol` — торговый символ (например, 'ETH/USDT') **[обязательный]**
-- `connectionName` — название подключения к бирже (по умолчанию берется из `this.connectionName`)
+- `connectionName` — название подключения к бирже (по умолчанию берется из глобальных аргументов)
 - `hedgeMode?` — определяет, включен ли режим открытия позиций в обе стороны (по умолчанию: `false`)
 - `prefix?` — префикс для генерации clientOrderId (по умолчанию: случайный 4-символьный ID)
 - `triggerType?` — метод создания стоп-ордеров ('script' или 'exchange') (по умолчанию: `'script'`)
@@ -57,7 +57,7 @@ OrdersBasket использует следующие значения по ум�
 - **`prefix`**: случайный 4-символьный ID — уникальный префикс для всех ордеров
 - **`triggerType`**: `'script'` — стоп-ордера управляются локально
 - **`leverage`**: `1` — без плеча (спот торговля)
-- **`connectionName`**: берется из `this.connectionName` — настройки JT-Trader
+- **`connectionName`**: берется из глобальных аргументов — настройки JT-Trader
 
 ### Инициализация
 
@@ -72,12 +72,12 @@ await ordersBasket.init();
 OrdersBasket обычно используется внутри торговых скриптов, наследующих от `BaseScript`:
 
 ```typescript
-class MyTradingScript extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Создаем OrdersBasket для первого символа из списка
     this.basket = new OrdersBasket({
       symbol: this.symbols[0], // первый символ из настроек JT-Trader
-      connectionName: this.connectionName, // подключение из настроек
+      connectionName: getArgString('connectionName'), // подключение из глобальных аргументов
       leverage: getArgNumber('leverage', 1),
       hedgeMode: getArgBoolean('hedgeMode', false)
     });
@@ -95,7 +95,7 @@ class MyTradingScript extends BaseScript {
 
 **Важные моменты:**
 - **`this.symbols[0]`** — первый символ из списка, переданного в JT-Trader
-- **`this.connectionName`** — название подключения к бирже из настроек сценария
+- **`getArgString('connectionName')`** — название подключения к бирже из глобальных аргументов
 - **JT-Trader** автоматически передает все параметры через глобальную переменную `ARGS`
 
 ### Как JT-Trader запускает скрипты
@@ -108,7 +108,7 @@ class Script extends BaseScript {  // ← JT-Trader ищет именно это
   async onInit() {
     this.basket = new OrdersBasket({
       symbol: this.symbols[0], // символы из настроек Runtime/Tester
-      connectionName: this.connectionName, // подключение из настроек
+      connectionName: getArgString('connectionName'), // подключение из глобальных аргументов
       leverage: getArgNumber('leverage', 1)
     });
     await this.basket.init();
@@ -137,9 +137,9 @@ class Script extends BaseScript {  // ← JT-Trader ищет именно это
 ### Размер контракта (contractSize)
 
 Каждый фьючерсный символ имеет свой размер контракта:
-- **BTC/USDT** — contractSize = 0.001 (1 контракт = 0.001 BTC)
-- **ETH/USDT** — contractSize = 0.01 (1 контракт = 0.01 ETH)
-- **XRP/USDT** — contractSize = 10 (1 контракт = 10 XRP)
+- **BTC/USDT:USDT** — contractSize = 0.001 (1 контракт = 0.001 BTC)
+- **ETH/USDT:USDT** — contractSize = 0.01 (1 контракт = 0.01 ETH)
+- **XRP/USDT:USDT** — contractSize = 10 (1 контракт = 10 XRP)
 
 ### Конвертация объемов
 
@@ -156,14 +156,14 @@ const usdAmount = ordersBasket.getUsdAmount(1, 2200); // 1 контракт по
 ### Примеры расчетов
 
 ```typescript
-// Для BTC/USDT (contractSize = 0.001, цена = 50000)
+// Для BTC/USDT:USDT (contractSize = 0.001, цена = 50000)
 const contracts = ordersBasket.getContractsAmount(100, 50000);
 // Результат: 2 контракта (100 / 50000 / 0.001 = 2)
 
 const usdValue = ordersBasket.getUsdAmount(2, 50000);  
 // Результат: 100 USD (2 * 50000 * 0.001 = 100)
 
-// Для XRP/USDT (contractSize = 10, цена = 0.5)
+// Для XRP/USDT:USDT (contractSize = 10, цена = 0.5)
 const contracts = ordersBasket.getContractsAmount(100, 0.5);
 // Результат: 20 контрактов (100 / 0.5 / 10 = 20)
 
@@ -397,7 +397,7 @@ await testBasket.init();
 ### Пример тестирования стратегии
 
 ```typescript
-class TestStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     this.basket = new OrdersBasket({
       symbol: 'BTC/USDT',
@@ -461,11 +461,11 @@ ordersBasket.unsubscribe();
 ### Грид-стратегия
 
 ```typescript
-class GridStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     this.basket = new OrdersBasket({
       symbol: this.symbols[0], // первый символ из настроек JT-Trader
-      connectionName: this.connectionName, // подключение из настроек
+      connectionName: getArgString('connectionName'), // подключение из глобальных аргументов
       leverage: getArgNumber('leverage', 1)
     });
     await this.basket.init();
@@ -497,11 +497,11 @@ class GridStrategy extends BaseScript {
 ### DCA стратегия
 
 ```typescript
-class DCAStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     this.basket = new OrdersBasket({
       symbol: this.symbols[0], // первый символ из настроек JT-Trader
-      connectionName: this.connectionName, // подключение из настроек
+      connectionName: getArgString('connectionName'), // подключение из глобальных аргументов
       leverage: getArgNumber('leverage', 1)
     });
     await this.basket.init();

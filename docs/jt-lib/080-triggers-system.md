@@ -27,7 +27,7 @@ trigger.addTask({
 ### 2. Регистрация callback по имени (обычная функция)
 ```typescript
 // ✅ Правильно - регистрация обычной функции
-class MyScript extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Регистрируем функцию по имени
     this.triggerService.registerHandler('myTask', this.onPriceTrigger, this);
@@ -47,7 +47,7 @@ class MyScript extends BaseScript {
 }
 
 // ❌ НЕПРАВИЛЬНО - стрелочные функции нельзя регистрировать
-class MyScript extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // ❌ Ошибка! Стрелочные функции не поддерживаются для регистрации
     this.triggerService.registerHandler('myTask', (args) => {
@@ -222,7 +222,7 @@ globals.triggers.cancelTimeTask(timeTaskId);
 ### Автоматическое управление Stop Loss и Take Profit
 
 ```typescript
-class AutoSlTpStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Регистрируем обработчик для создания SL/TP
     globals.triggers.registerOrderHandler('createSlTp', this.createSlTp, this);
@@ -273,7 +273,7 @@ class AutoSlTpStrategy extends BaseScript {
 ### Ценовые триггеры для входа в позицию
 
 ```typescript
-class PriceTriggerStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Регистрируем обработчик для входа в позицию
     globals.triggers.registerPriceHandler('BTC/USDT', 'enterLong', this.enterLong, this);
@@ -326,7 +326,7 @@ class PriceTriggerStrategy extends BaseScript {
 ### Временные триггеры для отчетов
 
 ```typescript
-class ReportStrategy extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Регистрируем обработчик для ежедневных отчетов
     globals.triggers.registerTimeHandler('dailyReport', this.generateDailyReport, this);

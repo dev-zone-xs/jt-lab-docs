@@ -214,7 +214,7 @@ class CustomIndicators extends Indicators {
 }
 
 // Использование в скрипте
-class MyScript extends BaseScript {
+class Script extends BaseScript {
   private customInd: CustomIndicator;
 
   async onInit() {
@@ -234,7 +234,7 @@ class MyScript extends BaseScript {
 ### Пример: RSI стратегия
 
 ```typescript
-class RsiStrategy extends BaseScript {
+class Script extends BaseScript {
   private rsi: RelativeStrengthIndex;
   private sma: SimpleMovingAverageIndicator;
   private isPositionOpened = false;
@@ -278,7 +278,7 @@ class RsiStrategy extends BaseScript {
 ### Пример: Мульти-таймфрейм анализ
 
 ```typescript
-class MultiTimeframeStrategy extends BaseScript {
+class Script extends BaseScript {
   private rsi1h: RelativeStrengthIndex;
   private rsi4h: RelativeStrengthIndex;
   private sma1h: SimpleMovingAverageIndicator;
@@ -488,7 +488,7 @@ export class CustomMovingAverage extends BaseIndicator {
 
 ```typescript
 // В BaseScript автоматически доступен
-class MyScript extends BaseScript {
+class Script extends BaseScript {
   async onInit() {
     // Создание индикаторов
     const rsi = await globals.indicators.rsi('BTC/USDT', '1h', 14);
@@ -500,7 +500,7 @@ class MyScript extends BaseScript {
 ### Управление жизненным циклом
 
 ```typescript
-class MyScript extends BaseScript {
+class Script extends BaseScript {
   private indicators: BaseIndicator[] = [];
 
   async onInit() {

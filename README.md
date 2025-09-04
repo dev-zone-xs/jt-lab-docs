@@ -77,6 +77,12 @@ yarn serve
 
 ## 🔗 Полезные ссылки
 
+### JT-Lab Ресурсы
+- **🌐 [Официальный сайт JT-Lab](https://jt-lab.com)** - Главная страница платформы
+- **📦 [JT-Trader на GitHub](https://github.com/jt-lab-com/jt-trader)** - Исходный код торговой платформы
+- **📚 [JT-Lib на GitHub](https://github.com/jt-lab-com/jt-lib)** - Исходный код библиотеки для разработки
+
+### Документация
 - [Docusaurus Documentation](https://docusaurus.io/docs)
 - [MDX Documentation](https://mdxjs.com/)
 - [GitHub Pages](https://pages.github.com/)

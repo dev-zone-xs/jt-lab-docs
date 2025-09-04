@@ -130,28 +130,36 @@ const config: Config = {
           ],
         },
         {
+          title: 'JT-Lab',
+          items: [
+            {
+              label: 'Официальный сайт',
+              href: 'https://jt-lab.com',
+            },
+            {
+              label: 'JT-Trader GitHub',
+              href: 'https://github.com/jt-lab-com/jt-trader',
+            },
+            {
+              label: 'JT-Lib GitHub',
+              href: 'https://github.com/jt-lab-com/jt-lib',
+            },
+          ],
+        },
+        {
           title: 'Community',
           items: [
             {
-              label: 'GitHub',
+              label: 'GitHub Docs',
               href: 'https://github.com/dev-zone-xs/jt-lab-docs',
             },
             {
               label: 'Issues',
               href: 'https://github.com/dev-zone-xs/jt-lab-docs/issues',
             },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
             {
               label: 'Blog',
               to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/dev-zone-xs/jt-lab-docs',
             },
           ],
         },

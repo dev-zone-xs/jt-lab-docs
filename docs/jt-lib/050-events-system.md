@@ -106,179 +106,200 @@ EventEmitter автоматически управляет жизненным ц
 - **`emit()`** - генерация пользовательских событий (тип: `CustomEventData`)
 - **`subscribe()`** - подписка на пользовательские события
 
-### Примеры подписки с типизацией
+### Примеры подписки на события
 
 ```typescript
-// Подписка на тики с интервалом 5 секунд (автоматическая типизация TickEventData)
-globals.events.subscribeOnTick(this.processTick, this, 'BTC/USDT', 5000);
-
-// Подписка на изменения ордеров (автоматическая типизация OrderChangeEventData)
+// Подписка на изменения ордеров для конкретного символа
 globals.events.subscribeOnOrderChange(this.handleOrderChange, this, 'BTC/USDT');
 
-// Подписка на PnL изменения (автоматическая типизация PnlChangeEventData)
+// Подписка на тики для конкретного символа с интервалом 5 секунд
+globals.events.subscribeOnTick(this.processTick, this, 'BTC/USDT', 5000);
+
+// Подписка на системные события
 globals.events.subscribe('onPnlChange', this.onPnlChange, this);
+globals.events.subscribe('onArgsUpdate', this.onArgsUpdate, this);
+globals.events.subscribe('onReportAction', this.onReportAction, this);
 
-// Пользовательское событие
-globals.events.subscribe('strategyStarted', this.onStrategyStart, this);
+// Подписка на события в тестере
+globals.events.subscribe('onAfterStop', this.onStopTester, this);
 
-// Генерация события с типизированными данными
-const order: Order = { /* данные ордера */ };
-const pnlData: PnlChangeEventData = {
-  type: 'pnl',
-  amount: 100.50,
-  symbol: 'BTC/USDT',
-  order: order
-};
-globals.events.emit('onPnlChange', pnlData);
+// Подписка на события в рантайме
+globals.events.subscribe('onOrderChange', this.collectOrdersRuntime, this);
 ```
 
-### Типизированные обработчики событий
+### Примеры обработчиков событий
 
 ```typescript
-class MyStrategy extends BaseScript {
-  // Обработчик тиков с полной типизацией
-  async onTick(data: TickEventData) {
-    console.log(`Price: ${data.close}, Volume: ${data.volume}`);
-    console.log(`Bid: ${data.bid}, Ask: ${data.ask}`);
+class MyService extends BaseObject {
+  constructor() {
+    super();
+    // Подписка на события в конструкторе
+    globals.events.subscribe('onOrderChange', this.onOrderChange, this);
+    globals.events.subscribe('onTick', this.onTick, this);
   }
 
-  // Обработчик изменений ордеров с типизацией
-  async onOrderChange(order: OrderChangeEventData) {
+  // Обработчик изменений ордеров
+  async onOrderChange(order: Order) {
     console.log(`Order ${order.id} status: ${order.status}`);
     if (order.status === 'closed') {
       console.log(`Filled: ${order.filled}/${order.amount}`);
     }
   }
 
-  // Обработчик PnL изменений с типизацией
+  // Обработчик тиков
+  async onTick(data: Tick) {
+    console.log(`Price: ${data.close}, Volume: ${data.volume}`);
+  }
+
+  // Обработчик PnL изменений
   async onPnlChange(data: PnlChangeEventData) {
     console.log(`PnL ${data.type}: ${data.amount} for ${data.symbol}`);
-    console.log(`Related order: ${data.order.id}`); // data.order имеет тип Order
   }
 }
 ```
 
 
 
-## Новые возможности типизации (types-for-all2)
-
-### Полная типизация событий
-В ветке `types-for-all2` добавлена полная типизация для всех событий, что обеспечивает:
-
-- **Type Safety** - проверка типов на этапе компиляции
-- **IntelliSense** - автодополнение и подсказки в IDE
-- **Рефакторинг** - безопасное переименование и изменение кода
-- **Документация** - типы служат документацией API
-
-### Основные типы данных событий
-
-#### TickEventData
-```typescript
-interface TickEventData {
-  symbol: string;
-  timestamp: number;
-  datetime: string;
-  high: number;
-  low: number;
-  bid: number;
-  ask: number;
-  open: number;
-  close: number;
-  volume: number;
-  // ... и другие поля
-}
-```
-
-#### OrderChangeEventData
-```typescript
-type OrderChangeEventData = Order; // Использует глобальный тип Order
-```
-
-#### PnlChangeEventData
-```typescript
-interface PnlChangeEventData {
-  type: 'pnl' | 'fee' | 'transfer';
-  amount: number;
-  symbol: string;
-  order: Order; // Использует глобальный тип Order
-}
-```
-
-### Union типы для событий
-```typescript
-type EventName = 
-  | 'onOrderChange'
-  | 'onTick'
-  | 'onPnlChange'
-  | 'onTimer'
-  | 'onTickEnded'
-  | 'onArgsUpdate'
-  | 'onEvent'
-  | 'onRun'
-  | 'onBeforeStop'
-  | 'onStop'
-  | 'onAfterStop'
-  | 'onReportAction'
-  | 'onBeforeTick' // Deprecated
-  | 'onAfterTick' // Deprecated
-  | `onTick_${string}` // Динамические события по символам
-  | `onOrderChange_${string}`;
-```
-
-### Продвинутая типизация с Conditional Types
-
-```typescript
-// Conditional type для получения типа данных события
-type GetEventData<T extends EventName> = T extends 'onOrderChange'
-  ? Order
-  : T extends `onOrderChange_${string}`
-  ? Order
-  : T extends 'onTick'
-  ? undefined
-  : T extends 'onPnlChange'
-  ? PnlChangeEventData
-  : T extends 'onArgsUpdate'
-  ? ArgsUpdateEventData
-  : T extends 'onReportAction'
-  ? ReportActionEventData
-  : undefined;
-
-// Типизированный обработчик событий
-type TypedEventHandler<T extends EventName> = (data?: GetEventData<T>) => Promise<any>;
-
-// Типизированные функции subscribe и emit
-type TypedSubscribe = <T extends EventName>(
-  eventName: T,
-  handler: TypedEventHandler<T>,
-  owner: BaseObject,
-) => string;
-
-type TypedEmit = <T extends EventName>(
-  eventName: T,
-  data?: GetEventData<T>,
-  listeners?: EventListener[],
-) => Promise<void>;
-```
-
 ## Интеграция с другими компонентами
 
-### EventEmitter + TriggerService
-- EventEmitter генерирует события с полной типизацией
-- TriggerService подписывается на события и выполняет задачи
-- Автоматическая синхронизация жизненных циклов
+Система событий в JT-LIB интегрирована с основными компонентами библиотеки. EventEmitter создается в конструкторе BaseScript и далее используется во всей системе. Основными поставщиками событий являются BaseScript и OrdersBasket.
 
-### BaseScript + Events
-- Стратегия подписывается на события через EventEmitter
-- Автоматическое управление подписками при уничтожении
-- Полная типизация всех обработчиков событий
+### Поставщики событий
 
-### OrdersBasket + Events
-- OrdersBasket автоматически генерирует события при изменении ордеров
-- События `onOrderChange` и `onPnlChange` для отслеживания торговли
-- Интеграция с системой событий для реактивного программирования
+#### BaseScript - основной поставщик событий
 
-## Следующие шаги
+**BaseScript** генерирует следующие события:
+- **`onTick`** - при каждом тике рыночных данных (через emitOnTick)
+- **`onTickEnded`** - завершение тика
+- **`onTimer`** - события таймера
+- **`onOrderChange`** - при изменении состояния ордера
+- **`onArgsUpdate`** - при обновлении аргументов стратегии
+- **`onEvent`** - события из веб-сокетов от бирж
+- **`onRun`** - запуск стратегии
+- **`onBeforeStop`** - перед остановкой стратегии
+- **`onStop`** - при остановке стратегии
+- **`onAfterStop`** - после остановки стратегии
+- **`onReportAction`** - действия с отчетами
 
-- **[Система триггеров](/docs/jt-lib/triggers-system)** - Автоматические действия по условиям
-- **[Торговые скрипты](/docs/jt-lib/trading-scripts)** - Базовый класс для торговых скриптов
-- **[Работа с биржей](/docs/jt-lib/exchange-orders-basket)** - OrdersBasket для торговых операций
+#### OrdersBasket - поставщик торговых событий
+
+**OrdersBasket** генерирует следующие события:
+- **`onPnlChange`** - при изменении прибыли/убытка (реализованной и нереализованной)
+
+
+### Подписки на события
+
+#### TriggerService
+При создании в конструкторе подписывается на события:
+- **`onTick`** - для выполнения задач по времени
+- **`onOrderChange`** - для выполнения задач по состоянию ордеров
+
+#### OrdersBasket
+При создании в конструкторе подписывается на события:
+- **`onOrderChange_${symbol}`** - для конкретного символа
+- **`onTick_${symbol}`** - для конкретного символа
+
+#### StandardReportLayout
+При создании в конструкторе подписывается на события:
+- **`onArgsUpdate`** - для обработки обновлений аргументов
+- **`onAfterStop`** - для обработки остановки в тестере
+- **`onOrderChange`** - для записи изменений ордеров в рантайме
+- **`onReportAction`** - для обработки действий с отчетами
+
+#### ReportStatistics
+При создании в конструкторе подписывается на события:
+- **`onOrderChange`** - для сбора статистики по ордерам
+- **`onTick`** - для сбора данных
+
+#### ReportActionButton
+При создании в конструкторе подписывается на события:
+- **`onReportAction`** - для обработки действий кнопок
+
+**Важно:** BaseScript и все примеры скриптов НЕ подписываются на события напрямую. Они только переопределяют методы обработки событий (`onTick`, `onOrderChange`, `onInit`, `onStop`, `onEvent`), которые вызываются автоматически системой.
+
+### Автоматическое управление жизненными циклами
+
+Система событий JT-LIB обеспечивает автоматическое управление подписками для предотвращения утечек памяти и некорректных вызовов обработчиков.
+
+**Критическая проблема безопасности:**
+В JavaScript при уничтожении объекта его методы (callback-функции) остаются в памяти, если на них есть ссылки в EventEmitter. Это приводит к двум серьезным проблемам:
+
+1. **Утечки памяти** - объекты не освобождаются из памяти
+2. **Критическая угроза безопасности** - callback-функции могут вызываться после уничтожения объекта, что особенно опасно в торговых системах, где это может привести к неожиданным торговым операциям
+
+**Особенно критично в торговых стратегиях:**
+- Пользователь может уничтожить объект, но callback-функции продолжат работать
+- Стратегия продолжает работать даже после уничтожения объекта-владельца callback-функций
+- Это может привести к непредсказуемым потерям средств
+- Поэтому критически важно проверять, уничтожен ли объект при вызове callback-функций
+
+**Решение через параметр `owner`:**
+При подписке на события передается параметр `owner` (обычно `this`), который позволяет системе отслеживать состояние объекта-владельца обработчика.
+
+**BaseObject обеспечивает:**
+- Автоматическую отписку от всех событий при вызове `destroy()`
+- Установку флага `_isDestroyed = true` при уничтожении
+- Рекурсивное уничтожение дочерних объектов
+- Вызов `unsubscribe()` для очистки всех подписок
+
+**EventEmitter обеспечивает:**
+- **Проверку флага `_isDestroyed` перед вызовом обработчиков:**
+  ```typescript
+  if (listener.owner?._isDestroyed === true) {
+    error('EventEmitter::emit()', 'The owner of the listener is destroyed', {
+      ...listener,
+      owner: undefined,
+      data,
+    });
+    // НЕ вызываем listener.handler(data) - предотвращаем торговые операции!
+  } else {
+    let result = await listener.handler(data); // Безопасный вызов
+  }
+  ```
+- Автоматическое удаление подписок через `unsubscribeByObjectId()`
+- Логирование попыток вызова методов уничтоженных объектов
+- **Критически важно:** предотвращение выполнения торговых операций уничтоженными объектами
+- Обработку ошибок в обработчиках событий
+
+**Пример автоматической очистки:**
+```typescript
+class TradingService extends BaseObject {
+  constructor() {
+    super();
+    // Подписка с передачей this как owner
+    globals.events.subscribe('onTick', this.onTick, this);
+  }
+  
+  async onTick(data: Tick) {
+    // ОПАСНО: без проверки _isDestroyed этот метод может
+    // выполняться даже после уничтожения объекта!
+    await this.createOrder('buy', 100); // Торговая операция!
+  }
+  
+  // При вызове destroy() автоматически:
+  // 1. Устанавливается _isDestroyed = true
+  // 2. Вызывается unsubscribe()
+  // 3. EventEmitter удаляет все подписки этого объекта
+  // 4. onTick больше НЕ будет вызываться - торговые операции остановлены
+}
+```
+
+**Без системы управления жизненными циклами:**
+```typescript
+// ОПАСНЫЙ КОД - НЕ ИСПОЛЬЗУЙТЕ!
+class DangerousService {
+  constructor() {
+    // Подписка БЕЗ owner - объект не отслеживается!
+    globals.events.subscribe('onTick', this.onTick, null);
+  }
+  
+  async onTick(data: Tick) {
+    // Этот метод будет вызываться даже после уничтожения объекта!
+    await this.createOrder('buy', 100); // КРИТИЧЕСКАЯ ОШИБКА!
+  }
+}
+```
+
+Такая архитектура обеспечивает надежное управление памятью и предотвращает утечки при работе с событиями в торговых стратегиях.
+
+

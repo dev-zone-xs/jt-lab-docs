@@ -60,33 +60,32 @@ const candle = [1614556800000, 50000, 51000, 49000, 50500, 1000];
 
 ## CandlesBuffer - буферизация данных
 
-**`CandlesBuffer`** — класс для эффективного управления буфером свечей с автоматическим обновлением.
+**`CandlesBuffer`** — класс для эффективного управления буфером свечей с автоматическим обновлением. В JT-LIB буферы управляются через глобальный сервис `CandlesBufferService`, который предотвращает создание дублирующих буферов для одинаковых символов и таймфреймов.
 
 ### Основные возможности
 
+- **Глобальное кэширование** — один буфер на комбинацию symbol+timeframe
 - **Автоматическое обновление** — подписка на события `onTick` для обновления данных
 - **Предзагрузка данных** — автоматическая загрузка исторических данных при инициализации
 - **Управление размером буфера** — ограничение максимального размера буфера
 - **Доступ к OHLC данным** — методы для получения open, high, low, close, volume
 
-### Создание и инициализация
+### Получение буфера через глобальный сервис
 
 ```typescript
-import { CandlesBuffer } from 'jt-lib';
-
-// Создание буфера свечей
-const buffer = new CandlesBuffer({
+// Получение буфера через глобальный сервис (рекомендуемый способ)
+const buffer = await globals.candlesBufferService.getBuffer({
   symbol: 'BTC/USDT',
   timeframe: '1h',
   preloadCandlesCount: 250, // количество свечей для предзагрузки
   maxBufferLength: 1000     // максимальный размер буфера
 });
 
-// Инициализация (загружает исторические данные)
-await buffer.initialize();
+// Буфер автоматически инициализируется и кэшируется
+// При повторном запросе с теми же параметрами вернется существующий буфер
 ```
 
-### Параметры конструктора
+### Параметры CandlesBufferOptions
 
 ```typescript
 interface CandlesBufferOptions {
@@ -96,6 +95,10 @@ interface CandlesBufferOptions {
   maxBufferLength?: number;          // максимальный размер буфера (по умолчанию: 1000)
 }
 ```
+
+### Как работает кэширование
+
+Сервис `CandlesBufferService` создает уникальный ключ для каждого буфера: `${symbol}-${timeframe}`. При первом запросе создается новый буфер, при повторных запросах с теми же параметрами возвращается существующий буфер.
 
 ### Методы CandlesBuffer
 
@@ -165,17 +168,13 @@ const roundedTime = roundTimeByTimeframe(timestamp, '1h');
 
 ## Обработка рыночных данных - как анализировать рынок
 
-### CandlesBufferService - управление буферами
+### CandlesBufferService - глобальное управление буферами
 
-**`CandlesBufferService`** — сервис для управления множественными буферами свечей.
+**`CandlesBufferService`** — глобальный сервис для управления буферами свечей. Сервис автоматически создается в `BaseScript` и доступен через `globals.candlesBufferService`.
 
 ```typescript
-import { CandlesBufferService } from 'jt-lib';
-
-const service = new CandlesBufferService();
-
-// Получение или создание буфера
-const buffer = await service.getBuffer({
+// Получение буфера через глобальный сервис
+const buffer = await globals.candlesBufferService.getBuffer({
   symbol: 'BTC/USDT',
   timeframe: '1h',
   preloadCandlesCount: 500
@@ -183,6 +182,7 @@ const buffer = await service.getBuffer({
 
 // Сервис автоматически управляет кэшированием буферов
 // Буферы создаются по ключу: `${symbol}-${timeframe}`
+// При повторном запросе с теми же параметрами возвращается существующий буфер
 ```
 
 ### Интеграция с индикаторами
@@ -209,14 +209,16 @@ class MyIndicator extends BaseIndicator {
 #### Простой анализ тренда
 
 ```typescript
-class TrendAnalysis extends BaseScript {
+class Script extends BaseScript {
+  private buffer: CandlesBuffer;
+
   async onInit() {
-    this.buffer = new CandlesBuffer({
+    // Получение буфера через глобальный сервис
+    this.buffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: '1h',
       preloadCandlesCount: 100
     });
-    await this.buffer.initialize();
   }
 
   async onTick() {
@@ -245,14 +247,16 @@ class TrendAnalysis extends BaseScript {
 #### Анализ волатильности
 
 ```typescript
-class VolatilityAnalysis extends BaseScript {
+class Script extends BaseScript {
+  private buffer: CandlesBuffer;
+
   async onInit() {
-    this.buffer = new CandlesBuffer({
+    // Получение буфера через глобальный сервис
+    this.buffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: '4h',
       preloadCandlesCount: 50
     });
-    await this.buffer.initialize();
   }
 
   async onTick() {
@@ -282,14 +286,16 @@ class VolatilityAnalysis extends BaseScript {
 #### Поддержка и сопротивление
 
 ```typescript
-class SupportResistanceAnalysis extends BaseScript {
+class Script extends BaseScript {
+  private buffer: CandlesBuffer;
+
   async onInit() {
-    this.buffer = new CandlesBuffer({
+    // Получение буфера через глобальный сервис
+    this.buffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: '1d',
       preloadCandlesCount: 100
     });
-    await this.buffer.initialize();
   }
 
   async onTick() {
@@ -323,7 +329,7 @@ class SupportResistanceAnalysis extends BaseScript {
 
 ```typescript
 // Для долгосрочного анализа используйте большие буферы
-const longTermBuffer = new CandlesBuffer({
+const longTermBuffer = await globals.candlesBufferService.getBuffer({
   symbol: 'BTC/USDT',
   timeframe: '1d',
   preloadCandlesCount: 1000,
@@ -331,7 +337,7 @@ const longTermBuffer = new CandlesBuffer({
 });
 
 // Для краткосрочного анализа - меньшие буферы
-const shortTermBuffer = new CandlesBuffer({
+const shortTermBuffer = await globals.candlesBufferService.getBuffer({
   symbol: 'BTC/USDT',
   timeframe: '1m',
   preloadCandlesCount: 100,
@@ -339,21 +345,22 @@ const shortTermBuffer = new CandlesBuffer({
 });
 ```
 
-#### Кэширование буферов
+#### Автоматическое кэширование буферов
 
 ```typescript
-class OptimizedAnalysis extends BaseScript {
+class Script extends BaseScript {
+  private hourlyBuffer: CandlesBuffer;
+  private dailyBuffer: CandlesBuffer;
+
   async onInit() {
-    // Используйте CandlesBufferService для кэширования
-    this.bufferService = new CandlesBufferService();
-    
-    // Буферы будут переиспользоваться
-    this.hourlyBuffer = await this.bufferService.getBuffer({
+    // Буферы автоматически кэшируются через глобальный сервис
+    // При повторном запросе с теми же параметрами вернется существующий буфер
+    this.hourlyBuffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: '1h'
     });
     
-    this.dailyBuffer = await this.bufferService.getBuffer({
+    this.dailyBuffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: '1d'
     });
@@ -366,14 +373,16 @@ class OptimizedAnalysis extends BaseScript {
 ### BaseScript + CandlesBuffer
 
 ```typescript
-class MarketDataStrategy extends BaseScript {
+class Script extends BaseScript {
+  private buffer: CandlesBuffer;
+
   async onInit() {
-    this.buffer = new CandlesBuffer({
+    // Получение буфера через глобальный сервис
+    this.buffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: getArgString('timeframe', '1h'),
       preloadCandlesCount: getArgNumber('candlesCount', 250)
     });
-    await this.buffer.initialize();
   }
 
   async onTick() {
@@ -392,7 +401,10 @@ class MarketDataStrategy extends BaseScript {
 ### OrdersBasket + Market Data
 
 ```typescript
-class DataDrivenStrategy extends BaseScript {
+class Script extends BaseScript {
+  private basket: OrdersBasket;
+  private buffer: CandlesBuffer;
+
   async onInit() {
     this.basket = new OrdersBasket({
       symbol: this.symbols[0],
@@ -400,11 +412,11 @@ class DataDrivenStrategy extends BaseScript {
     });
     await this.basket.init();
     
-    this.buffer = new CandlesBuffer({
+    // Получение буфера через глобальный сервис
+    this.buffer = await globals.candlesBufferService.getBuffer({
       symbol: this.symbols[0],
       timeframe: '1h'
     });
-    await this.buffer.initialize();
   }
 
   async onTick() {
