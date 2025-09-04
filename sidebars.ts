@@ -47,6 +47,7 @@ const sidebars: SidebarsConfig = {
         'jt-trader/030-tester-overview',
         'jt-trader/040-strategy-files-overview',
         'jt-trader/050-configuration',
+        'jt-trader/060-global-native-functions',
       ],
     },
   ],
