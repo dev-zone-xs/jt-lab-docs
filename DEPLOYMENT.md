@@ -1,5 +1,64 @@
 # Инструкция по разворачиванию JT-Lab Docs
 
+## Работа с ветками
+
+### Создание новой ветки для работы
+```bash
+# Создание и переключение на новую ветку
+git checkout -b feature/your-feature-name
+
+# Или создание ветки от main
+git checkout main
+git pull origin main
+git checkout -b docs/update-reporting-system
+```
+
+### Работа с существующими ветками
+```bash
+# Просмотр всех веток
+git branch -a
+
+# Переключение на существующую ветку
+git checkout branch-name
+
+# Обновление ветки из main
+git checkout your-branch
+git merge main
+```
+
+### Рекомендуемые названия веток
+- `docs/update-section-name` - для обновления документации
+- `feature/new-feature` - для новых функций
+- `fix/bug-description` - для исправления ошибок
+- `refactor/component-name` - для рефакторинга
+
+### Типичный рабочий процесс
+1. **Создайте ветку для работы:**
+   ```bash
+   git checkout main
+   git pull origin main
+   git checkout -b docs/update-reporting-system
+   ```
+
+2. **Внесите изменения и зафиксируйте их:**
+   ```bash
+   # Редактируйте файлы
+   git add .
+   git commit -m "docs: Add detailed function descriptions"
+   ```
+
+3. **Отправьте ветку в удаленный репозиторий:**
+   ```bash
+   git push origin docs/update-reporting-system
+   ```
+
+4. **Создайте Pull Request** через веб-интерфейс GitHub или слейте в main:
+   ```bash
+   git checkout main
+   git merge docs/update-reporting-system
+   git push origin main
+   ```
+
 ## Локальная разработка
 
 ### Требования
@@ -42,19 +101,25 @@ yarn serve
 3. Публикуется на GitHub Pages
 
 **Для публикации:**
-1. Убедитесь, что все изменения зафиксированы в ветке `am-fix`
+1. Убедитесь, что все изменения зафиксированы в вашей рабочей ветке (например, `feature-branch`, `am-fix`, `docs-update` и т.д.)
 2. Переключитесь на ветку `main`:
    ```bash
    git checkout main
    ```
-3. Слейте изменения:
+3. Слейте изменения из вашей ветки:
    ```bash
-   git merge am-fix
+   git merge your-branch-name
    ```
+   Или создайте Pull Request для слияния через веб-интерфейс GitHub
 4. Отправьте изменения в удаленный репозиторий:
    ```bash
    git push origin main
    ```
+
+**Альтернативный способ через Pull Request:**
+1. Создайте Pull Request из вашей ветки в `main`
+2. После одобрения и слияния PR, GitHub Actions автоматически запустится
+3. Сайт будет опубликован на GitHub Pages
 
 **Настройка GitHub Pages:**
 1. Перейдите в Settings репозитория на GitHub
