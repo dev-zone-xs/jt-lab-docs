@@ -1,5 +1,5 @@
 ---
-id: 040-strategy-files-overview
+id: strategy-files-overview
 title: Strategy Files
 sidebar_label: Strategy Files
 ---

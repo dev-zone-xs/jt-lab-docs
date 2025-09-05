@@ -99,14 +99,6 @@ class Script extends BaseScript {
 ### Пример: GridBot Strategy
 
 ```typescript
-import { StandardReportLayout } from '../lib/report/layouts/standart.report.layout';
-import { globals } from '../lib/core/globals';
-import { currentTime } from '../lib/utils/date-time';
-import { BaseScript } from '../lib/script/base-script';
-import { OrdersBasket } from '../lib/exchange';
-import { getArgNumber } from '../lib/core/base';
-import { percentDifference } from '../lib/utils/numbers';
-import { BaseError } from '../lib/core/errors';
 
 class Script extends BaseScript {
   // Определение параметров скрипта

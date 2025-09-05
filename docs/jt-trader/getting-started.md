@@ -1,5 +1,5 @@
 ---
-id: 010-getting-started
+id: getting-started
 title: Введение
 sidebar_label: Введение
 ---
@@ -97,9 +97,9 @@ JT-Trader доступен под двойной лицензией:
 
 Для начала работы с JT-Trader рекомендуется изучить следующие разделы документации:
 
-- **[Runtime Overview](020-runtime-overview)** - обзор вкладки Runtime
-- **[Tester Overview](030-tester-overview)** - обзор вкладки Tester
-- **[Strategy Files Overview](040-strategy-files-overview)** - обзор вкладки Strategy Files
-- **[Конфигурация](050-configuration)** - настройка системы и подключений
+- **[Runtime Overview](runtime-overview)** - обзор вкладки Runtime
+- **[Tester Overview](tester-overview)** - обзор вкладки Tester
+- **[Strategy Files Overview](strategy-files-overview)** - обзор вкладки Strategy Files
+- **[Конфигурация](configuration)** - настройка системы и подключений
 
 JT-Trader открывает широкие возможности для алгоритмической торговли, сочетая в себе профессиональные инструменты разработки с удобным интерфейсом управления. Независимо от вашего уровня опыта в трейдинге, платформа предоставит все необходимые инструменты для создания и запуска эффективных торговых стратегий.

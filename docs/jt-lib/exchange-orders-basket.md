@@ -1,7 +1,7 @@
 ---
 id: exchange-orders-basket
 title: Работа с биржей (OrdersBasket)
-sidebar_label: OrdersBasket
+sidebar_label: Работа с биржей (OrdersBasket)
 ---
 
 # Работа с биржей (OrdersBasket)

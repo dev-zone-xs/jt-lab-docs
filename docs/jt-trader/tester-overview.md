@@ -1,5 +1,5 @@
 ---
-id: 030-tester-overview
+id: tester-overview
 title: Tester
 sidebar_label: Tester
 ---

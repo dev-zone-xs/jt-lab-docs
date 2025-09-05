@@ -1,5 +1,5 @@
 ---
-id: 060-global-native-functions
+id: global-native-functions
 title: Нативные функции системы JT-Trader
 sidebar_label: Нативные функции
 ---
