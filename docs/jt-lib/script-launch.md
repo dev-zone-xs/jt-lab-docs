@@ -25,7 +25,7 @@ sidebar_label: Запуск скрипта
 
 Нажмите кнопку **Create Runtime** для создания нового сценария запуска скрипта.
 
-![Create Runtime Screenshot](/images/create-scanerio-runtime.jpg)
+![Create Runtime Screenshot](/images/create-scanerio-runtime-intro.jpg)
 
 ### 3. Настройка параметров сценария
 
