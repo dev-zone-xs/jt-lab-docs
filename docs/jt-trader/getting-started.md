@@ -6,6 +6,52 @@ sidebar_label: Введение
 
 # Введение
 
+<div className="thumbnail-container">
+  <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/runtime-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/runtime-intro-thumb.png" alt="Runtime Overview" className="thumbnail-image" />
+    </a>    
+  </div>
+
+  <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/create-runtime-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/create-runtime-intro-thumb.png" alt="Create Runtime" className="thumbnail-image" />
+    </a>    
+  </div>
+
+  <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/tester-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/tester-intro-thumb.png" alt="Create Runtime" className="thumbnail-image" />
+    </a>    
+  </div>
+
+   <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/create-scenarion-tester-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/create-scenarion-tester-intro-thumb.png" alt="Create Runtime" className="thumbnail-image" />
+    </a>    
+  </div>
+
+  <!-- <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/tester-full-report-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/tester-full-report-intro-thumb.png" alt="Create Runtime" className="thumbnail-image" />
+    </a>    
+  </div> -->
+
+  <!-- <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/strategy-files-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/strategy-files-intro-thumb.png" alt="Create Runtime" className="thumbnail-image" />
+    </a>    
+  </div> -->
+<!-- 
+  <div className="thumbnail-item">
+    <a href="/jt-lab-docs/images/config-intro.png" target="_blank">
+      <img src="/jt-lab-docs/images/thumbnails/config-intro-thumb.png" alt="Create Runtime" className="thumbnail-image" />
+    </a>    
+  </div> -->
+  
+
+</div>
+
 JT-Trader представляет собой профессиональную торговую платформу, разработанную для создания, тестирования и запуска алгоритмических торговых стратегий. Платформа объединяет в себе мощный движок для выполнения торговых алгоритмов, комплексную систему тестирования стратегий и интуитивный веб-интерфейс для управления торговыми операциями.
 
 ## Обзор платформы

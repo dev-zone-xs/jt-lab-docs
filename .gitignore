@@ -87,3 +87,14 @@ jspm_packages/
 
 # TernJS port file
 .tern-port
+
+# Логи выполнения скриптов
+logs/
+*.log
+
+# Временные файлы
+*.tmp
+*.temp
+
+# Статистика выполнения
+last-run-stats.json
