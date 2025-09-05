@@ -64,8 +64,18 @@ JT-Trader можно установить тремя способами в за�
 | Операционная система | Ссылка для скачивания |
 |---------------------|----------------------|
 | **Windows** | [JT-Trader-Launcher-Setup.exe](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher-Setup.exe) |
-| **macOS (Intel)** | [JT-Trader-Launcher.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher.dmg) |
-| **macOS (Apple Silicon)** | [JT-Trader-Launcher-arm64.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher-arm64.dmg) |
+| **macOS (Intel)** | [JT-Trader-Launcher.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher.dmg) * |
+| **macOS (Apple Silicon)** | [JT-Trader-Launcher-arm64.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher-arm64.dmg) * |
+
+:::important Требования для macOS
+После установки приложения на macOS необходимо снять карантин, выполнив команду в терминале:
+
+```bash
+sudo xattr -rd com.apple.quarantine "/Applications/JT-Trader Launcher.app"
+```
+
+Это необходимо для корректной работы приложения на macOS.
+:::
 
 ### Установка
 
