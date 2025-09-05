@@ -6,6 +6,9 @@ build/
 
 .jt-lib/
 
+# JT-LIB source code (external dependency)
+jt-lib-source/
+
 # Generated files
 .docusaurus
 .cache-loader
