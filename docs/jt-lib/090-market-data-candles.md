@@ -234,11 +234,11 @@ class Script extends BaseScript {
     const currentPrice = this.buffer.close();
     
     if (currentPrice > avgHigh) {
-      console.log('Восходящий тренд');
+      log('TrendAnalysis', 'Восходящий тренд', { currentPrice, avgHigh, avgLow }, true);
     } else if (currentPrice < avgLow) {
-      console.log('Нисходящий тренд');
+      log('TrendAnalysis', 'Нисходящий тренд', { currentPrice, avgHigh, avgLow }, true);
     } else {
-      console.log('Боковое движение');
+      log('TrendAnalysis', 'Боковое движение', { currentPrice, avgHigh, avgLow }, true);
     }
   }
 }
@@ -272,12 +272,12 @@ class Script extends BaseScript {
     
     const avgVolatility = volatilities.reduce((sum, v) => sum + v, 0) / 10;
     
-    console.log(`Средняя волатильность: ${(avgVolatility * 100).toFixed(2)}%`);
+    log('VolatilityAnalysis', `Средняя волатильность: ${(avgVolatility * 100).toFixed(2)}%`, { avgVolatility }, true);
     
     if (avgVolatility > 0.05) {
-      console.log('Высокая волатильность');
+      log('VolatilityAnalysis', 'Высокая волатильность', { avgVolatility }, true);
     } else if (avgVolatility < 0.02) {
-      console.log('Низкая волатильность');
+      log('VolatilityAnalysis', 'Низкая волатильность', { avgVolatility }, true);
     }
   }
 }
@@ -312,12 +312,12 @@ class Script extends BaseScript {
     
     const currentPrice = this.buffer.close();
     
-    console.log(`Поддержка: ${support}, Сопротивление: ${resistance}`);
+    log('SupportResistance', `Поддержка: ${support}, Сопротивление: ${resistance}`, { support, resistance, currentPrice }, true);
     
     if (currentPrice > resistance * 0.99) {
-      console.log('Пробой сопротивления');
+      log('SupportResistance', 'Пробой сопротивления', { currentPrice, resistance }, true);
     } else if (currentPrice < support * 1.01) {
-      console.log('Пробой поддержки');
+      log('SupportResistance', 'Пробой поддержки', { currentPrice, support }, true);
     }
   }
 }
@@ -425,7 +425,7 @@ class Script extends BaseScript {
     
     // Сравнение данных из разных источников
     if (Math.abs(currentPrice - bufferPrice) > currentPrice * 0.001) {
-      console.log('Расхождение в ценах между источниками');
+      warning('PriceValidation', 'Расхождение в ценах между источниками', { currentPrice, bufferPrice, difference: Math.abs(currentPrice - bufferPrice) });
     }
   }
 }

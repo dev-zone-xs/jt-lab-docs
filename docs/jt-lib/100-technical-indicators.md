@@ -80,7 +80,7 @@ const currentSma = sma.getValue();
 // Сравнение цены с SMA
 const currentPrice = this.basket.close();
 if (currentPrice > currentSma) {
-  console.log('Цена выше SMA - восходящий тренд');
+  log('Strategy', 'Цена выше SMA - восходящий тренд', { currentPrice, smaValue: currentSma }, true);
 }
 ```
 
@@ -224,7 +224,7 @@ class Script extends BaseScript {
 
   async onTick() {
     const value = this.customInd.getValue();
-    console.log('Custom indicator value:', value);
+    trace('CustomIndicator', 'Custom indicator value', { value }, true);
   }
 }
 ```
@@ -446,7 +446,7 @@ getValue(shift = 0): number {
     const idx = this.buffer.length - 1 - shift;
     return idx >= 0 ? this.buffer[idx]?.value : undefined;
   } catch (error) {
-    console.error('Error calculating indicator value:', error);
+    error('CustomIndicator', 'Error calculating indicator value', { error: error.message });
     return undefined;
   }
 }

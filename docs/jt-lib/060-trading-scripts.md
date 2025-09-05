@@ -132,11 +132,11 @@ constructor(args: GlobalARGS) {
 ```typescript
 async onInit() {
   // Инициализация вашей стратегии
-  console.log('Стратегия инициализирована');
+  log('Script', 'Стратегия инициализирована', {}, true);
   
   // Получение баланса
-  console.log(`Общий баланс: ${this.balanceTotal} USDT`);
-  console.log(`Свободный баланс: ${this.balanceFree} USDT`);
+  log('Script', 'Общий баланс', { balanceTotal: this.balanceTotal }, true);
+  log('Script', 'Свободный баланс', { balanceFree: this.balanceFree }, true);
 }
 ```
 
@@ -155,8 +155,7 @@ async onTick() {
   const volume = volume();      // Объем торгов
   
   // Логика торговой стратегии
-  console.log(`Новый тик: ${currentPrice}, объем: ${volume}`);
-  console.log(`Ask: ${askPrice}, Bid: ${bidPrice}`);
+  trace('Script', 'Новый тик', { currentPrice, volume, askPrice, bidPrice }, true);
 }
 ```
 
@@ -166,10 +165,10 @@ async onTick() {
 
 ```typescript
 async onOrderChange(order: Order) {
-  console.log(`Ордер ${order.id} изменил статус: ${order.status}`);
+  log('OrderManager', 'Ордер изменил статус', { orderId: order.id, status: order.status }, true);
   
   if (order.status === 'filled') {
-    console.log(`Ордер исполнен: ${order.filled}/${order.amount}`);
+    log('OrderManager', 'Ордер исполнен', { orderId: order.id, filled: order.filled, amount: order.amount }, true);
   }
 }
 ```
@@ -180,7 +179,7 @@ async onOrderChange(order: Order) {
 
 ```typescript
 async onStop() {
-  console.log('Стратегия остановлена');
+  log('Script', 'Стратегия остановлена', {}, true);
   // Закрытие позиций, отмена ордеров и т.д.
 }
 ```
@@ -208,7 +207,7 @@ async onInit() {
 async onSymbolTick(symbol: string) {
   // Обработка тика для конкретного символа
   const currentPrice = close(symbol); // Используем нативную функцию с символом
-  console.log(`Тик для символа: ${symbol}, цена: ${currentPrice}`);
+  trace('MultiSymbol', 'Тик для символа', { symbol, currentPrice }, true);
 }
 ```
 
@@ -235,7 +234,7 @@ class Script extends BaseScript {
     const askPrice = ask()[0];
     const bidPrice = bid()[0];
     
-    console.log(`Таймер сработал. Цена: ${currentPrice}, Ask: ${askPrice}, Bid: ${bidPrice}`);
+    log('TimerStrategy', 'Таймер сработал', { currentPrice, askPrice, bidPrice }, true);
   }
 }
 ```
@@ -336,18 +335,21 @@ class Script extends BaseScript {
     
     // Проверка режима работы
     if (getArgString('start')) {
-      console.log('Запуск в режиме тестера');
-      console.log(`Период: ${getArgString('start')} - ${getArgString('end')}`);
-      console.log(`Баланс: ${getArgNumber('balance')} USDT`);
+      log('Script', 'Запуск в режиме тестера', { 
+        start: getArgString('start'), 
+        end: getArgString('end'),
+        balance: getArgNumber('balance')
+      }, true);
     } else {
-      console.log('Запуск в режиме Runtime');
+      log('Script', 'Запуск в режиме Runtime', {}, true);
     }
     
-    console.log(`Параметры стратегии:`);
-    console.log(`Цена покупки: ${this.buyPrice}`);
-    console.log(`Цена продажи: ${this.sellPrice}`);
-    console.log(`Объем: ${this.volume}`);
-    console.log(`Тестовый режим: ${this.isTestMode}`);
+    log('Script', 'Параметры стратегии', {
+      buyPrice: this.buyPrice,
+      sellPrice: this.sellPrice,
+      volume: this.volume,
+      isTestMode: this.isTestMode
+    }, true);
   }
 }
 ```
@@ -376,7 +378,7 @@ class Script extends BaseScript {
   private usdAmount: number = 100; // Размер позиции в USD
   
   async onInit() {
-    console.log('Мультисимвольная стратегия с OrdersBasket запущена');
+    log('MultiSymbolStrategy', 'Мультисимвольная стратегия с OrdersBasket запущена', {}, true);
     
     // Настройка цен для каждого символа
     this.buyPrices['BTC/USDT'] = 50000;
@@ -399,7 +401,7 @@ class Script extends BaseScript {
       // Подписка на тики для каждого символа
       globals.events.subscribeOnTick(() => this.onSymbolTick(symbol), this, symbol, 1000);
       
-      console.log(`OrdersBasket для ${symbol} инициализирован`);
+      log('MultiSymbolStrategy', 'OrdersBasket инициализирован', { symbol }, true);
     }
   }
   
@@ -423,8 +425,9 @@ class Script extends BaseScript {
       const order = await basket.buyMarket(contracts, tpPrice, slPrice);
       this.positions[symbol] = 1;
       
-      console.log(`${symbol}: Купили ${contracts} контрактов по цене: ${currentPrice}`);
-      console.log(`SL: ${slPrice}, TP: ${tpPrice}, Ордер ID: ${order.id}`);
+      log('MultiSymbolStrategy', 'Купили контракты', { 
+        symbol, contracts, currentPrice, slPrice, tpPrice, orderId: order.id 
+      }, true);
     }
     
     // Продажа при достижении целевой цены
@@ -441,8 +444,9 @@ class Script extends BaseScript {
         );
         
         this.positions[symbol] = 0;
-        console.log(`${symbol}: Закрыли позицию по цене: ${currentPrice}`);
-        console.log(`Ордер закрытия ID: ${closeOrder.id}`);
+        log('MultiSymbolStrategy', 'Закрыли позицию', { 
+          symbol, currentPrice, closeOrderId: closeOrder.id 
+        }, true);
       }
     }
   }
@@ -453,7 +457,7 @@ class Script extends BaseScript {
       const basket = this.baskets[symbol];
       if (basket) {
         await basket.cancelAllOrders();
-        console.log(`Все ордера для ${symbol} отменены`);
+        log('MultiSymbolStrategy', 'Все ордера отменены', { symbol }, true);
       }
     }
   }
@@ -470,7 +474,7 @@ class Script extends BaseScript {
   private usdAmount: number = 100;
   
   async onInit() {
-    console.log('Таймерная стратегия запущена');
+    log('TimerStrategy', 'Таймерная стратегия запущена', {}, true);
     
     // Создание OrdersBasket для первого символа
     this.basket = new OrdersBasket({
@@ -488,22 +492,22 @@ class Script extends BaseScript {
     
     // Действие каждые 5 минут
     if (now - this.lastAction > 300000) {
-      console.log('Выполняем действие по таймеру');
+      log('TimerStrategy', 'Выполняем действие по таймеру', {}, true);
       
       // Получаем рыночные данные через нативные функции
       const currentPrice = close();
       const askPrice = ask()[0];
       const bidPrice = bid()[0];
       
-      console.log(`Цена: ${currentPrice}, Ask: ${askPrice}, Bid: ${bidPrice}`);
+      trace('TimerStrategy', 'Рыночные данные', { currentPrice, askPrice, bidPrice }, true);
       
       // Логика стратегии
       const balance = await getBalance();
-      console.log(`Текущий баланс: ${balance.total.USDT} USDT`);
+      log('TimerStrategy', 'Текущий баланс', { balance: balance.total.USDT }, true);
       
       // Пример торговли по таймеру
       const contracts = this.basket.getContractsAmount(this.usdAmount, currentPrice);
-      console.log(`Можем купить ${contracts} контрактов на ${this.usdAmount} USD`);
+      log('TimerStrategy', 'Расчет контрактов', { contracts, usdAmount: this.usdAmount }, true);
       
       this.lastAction = now;
     }
@@ -520,7 +524,7 @@ class Script extends BaseScript {
   private usdAmount: number = 100;
   
   async onInit() {
-    console.log('Стратегия на основе ордеров запущена');
+    log('OrderBasedStrategy', 'Стратегия на основе ордеров запущена', {}, true);
     
     // Создание OrdersBasket для первого символа
     this.basket = new OrdersBasket({
@@ -539,11 +543,11 @@ class Script extends BaseScript {
     
     const order = await this.basket.buyLimit(contracts, limitPrice);
     this.pendingOrders.push(order.id);
-    console.log(`Создан лимит ордер на покупку: ${contracts} контрактов по цене ${limitPrice}`);
+    log('OrderBasedStrategy', 'Создан лимит ордер на покупку', { contracts, limitPrice, orderId: order.id }, true);
   }
   
   async onOrderChange(order: Order) {
-    console.log(`Ордер ${order.id}: ${order.status}`);
+    log('OrderBasedStrategy', 'Ордер изменил статус', { orderId: order.id, status: order.status }, true);
     
     if (order.status === 'filled') {
       // Ордер исполнен
@@ -557,14 +561,14 @@ class Script extends BaseScript {
         
         const sellOrder = await this.basket.sellLimit(contracts, sellPrice);
         this.pendingOrders.push(sellOrder.id);
-        console.log(`Создан лимит ордер на продажу: ${contracts} контрактов по цене ${sellPrice}`);
+        log('OrderBasedStrategy', 'Создан лимит ордер на продажу', { contracts, sellPrice, orderId: sellOrder.id }, true);
       }
     }
     
     if (order.status === 'cancelled') {
       // Ордер отменен
       this.pendingOrders = this.pendingOrders.filter(id => id !== order.id);
-      console.log(`Ордер ${order.id} отменен`);
+      log('OrderBasedStrategy', 'Ордер отменен', { orderId: order.id }, true);
     }
   }
 }
@@ -586,7 +590,7 @@ onError = async (e: any): Promise<never | void> => {
 
 ```typescript
 async onArgsUpdate(args: GlobalARGS) {
-  console.log('Параметры стратегии обновлены');
+  log('Script', 'Параметры стратегии обновлены', { args }, true);
   // Обновление логики при изменении параметров
 }
 ```
@@ -595,7 +599,7 @@ async onArgsUpdate(args: GlobalARGS) {
 
 ```typescript
 async onEvent(event: string, data: any) {
-  console.log(`Событие биржи: ${event}`, data);
+  log('ExchangeEvents', 'Событие биржи', { event, data }, true);
   // Обработка WebSocket событий
 }
 ```

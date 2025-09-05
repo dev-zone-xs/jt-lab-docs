@@ -19,7 +19,7 @@ trigger.addTask({
   name: 'myTask',
   triggerPrice: 50000,
   callback: async (args) => {
-    console.log('Триггер сработал!', args);
+    log('PriceTrigger', 'Триггер сработал!', { args }, true);
   }
 });
 ```
@@ -42,7 +42,7 @@ class Script extends BaseScript {
   
   // Обычная функция (не стрелочная!)
   async onPriceTrigger(args: any) {
-    console.log('Триггер сработал!', args);
+    log('PriceTrigger', 'Триггер сработал!', { args }, true);
   }
 }
 
@@ -51,7 +51,7 @@ class Script extends BaseScript {
   async onInit() {
     // ❌ Ошибка! Стрелочные функции не поддерживаются для регистрации
     this.triggerService.registerHandler('myTask', (args) => {
-      console.log('Это не сработает!');
+      log('PriceTrigger', 'Это не сработает!', { args }, true);
     }, this);
   }
 }
@@ -310,7 +310,7 @@ class Script extends BaseScript {
     const contracts = this.basket.getContractsAmount(100, price);
     
     await this.basket.buyMarket(contracts, price * 0.95, price * 1.1);
-    console.log('Long position opened at', price);
+    log('PositionManager', 'Long position opened', { price, contracts }, true);
   }
 
   async enterShort() {
@@ -318,7 +318,7 @@ class Script extends BaseScript {
     const contracts = this.basket.getContractsAmount(100, price);
     
     await this.basket.sellMarket(contracts, price * 1.05, price * 0.9);
-    console.log('Short position opened at', price);
+    log('PositionManager', 'Short position opened', { price, contracts }, true);
   }
 }
 ```
@@ -363,19 +363,19 @@ class Script extends BaseScript {
     const positions = await this.basket.getPositions();
     const orders = await this.basket.getOrders();
     
-    console.log('=== Daily Report ===');
-    console.log('Positions:', positions.length);
-    console.log('Orders:', orders.length);
-    console.log('Current P&L:', positions.reduce((sum, pos) => sum + pos.unrealizedPnl, 0));
+    log('DailyReport', '=== Daily Report ===', {}, true);
+    log('DailyReport', 'Positions count', { count: positions.length }, true);
+    log('DailyReport', 'Orders count', { count: orders.length }, true);
+    log('DailyReport', 'Current P&L', { pnl: positions.reduce((sum, pos) => sum + pos.unrealizedPnl, 0) }, true);
   }
 
   async hourlyCheck() {
     const price = this.basket.close();
-    console.log(`Hourly check - Current price: ${price}`);
+    log('HourlyCheck', 'Hourly check - Current price', { price }, true);
     
     // Проверяем условия для торговли
     if (price > 50000) {
-      console.log('Price above 50k - consider taking profit');
+      log('HourlyCheck', 'Price above 50k - consider taking profit', { price }, true);
     }
   }
 }

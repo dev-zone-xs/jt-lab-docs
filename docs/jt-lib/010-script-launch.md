@@ -83,9 +83,9 @@ class Script extends BaseScript {
     this.sellPrice = getArgNumber('sellPrice', 55000);
     this.volume = getArgNumber('volume', 0.001);
     
-    console.log('Стратегия инициализирована');
-    console.log(`Подключение: ${this.connectionName}`);
-    console.log(`Символы: ${this.symbols.join(', ')}`);
+    log('Script', 'Стратегия инициализирована', {}, true);
+    log('Script', 'Подключение', { connectionName: this.connectionName }, true);
+    log('Script', 'Символы', { symbols: this.symbols.join(', ') }, true);
   }
 
   // Обработка новых тиков (только для первого символа)
@@ -95,18 +95,18 @@ class Script extends BaseScript {
     // Логика торговой стратегии
     if (currentPrice <= this.buyPrice) {
       await this.buyMarket(this.volume);
-      console.log(`Купили по цене: ${currentPrice}`);
+      log('TradingStrategy', 'Купили по цене', { currentPrice, volume: this.volume }, true);
     }
   }
 
   // Обработка изменений ордеров
   async onOrderChange(order: Order) {
-    console.log(`Ордер ${order.id}: ${order.status}`);
+    log('OrderManager', 'Ордер изменил статус', { orderId: order.id, status: order.status }, true);
   }
 
   // Завершение работы
   async onStop() {
-    console.log('Стратегия остановлена');
+    log('Script', 'Стратегия остановлена', {}, true);
   }
 }
 ```

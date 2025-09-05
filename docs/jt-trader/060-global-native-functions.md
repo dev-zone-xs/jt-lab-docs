@@ -54,7 +54,7 @@ function isTester(): boolean;
 ```typescript
 if (isTester()) {
   // Логика только для тестера
-  console.log("Выполняется в режиме тестирования");
+  log('Script', 'Выполняется в режиме тестирования', {}, true);
 }
 ```
 
@@ -177,7 +177,11 @@ function getPositions(symbols?: string[], options = {}): Promise<Position[]>;
 ```typescript
 let positions = await getPositions();
 for (let position of positions) {
-  console.log(`Symbol: ${position.symbol}, Size: ${position.contracts}, Entry: ${position.entryPrice}`);
+  log('PositionManager', 'Position info', { 
+    symbol: position.symbol, 
+    size: position.contracts, 
+    entryPrice: position.entryPrice 
+  }, true);
 }
 ```
 
@@ -198,7 +202,7 @@ function getBalance(): Promise<{
 **Пример использования:**
 ```typescript
 let balance = await getBalance();
-console.log(`Free balance: ${balance.free.USDT}`);
+log('BalanceManager', 'Free balance', { balance: balance.free.USDT }, true);
 ```
 
 ### Функции работы с ордерами

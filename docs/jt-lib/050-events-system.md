@@ -140,20 +140,20 @@ class MyService extends BaseObject {
 
   // Обработчик изменений ордеров
   async onOrderChange(order: Order) {
-    console.log(`Order ${order.id} status: ${order.status}`);
+    log('OrderHandler', 'Order status changed', { orderId: order.id, status: order.status }, true);
     if (order.status === 'closed') {
-      console.log(`Filled: ${order.filled}/${order.amount}`);
+      log('OrderHandler', 'Order filled', { orderId: order.id, filled: order.filled, amount: order.amount }, true);
     }
   }
 
   // Обработчик тиков
   async onTick(data: Tick) {
-    console.log(`Price: ${data.close}, Volume: ${data.volume}`);
+    trace('TickHandler', 'Price tick', { price: data.close, volume: data.volume }, true);
   }
 
   // Обработчик PnL изменений
   async onPnlChange(data: PnlChangeEventData) {
-    console.log(`PnL ${data.type}: ${data.amount} for ${data.symbol}`);
+    log('PnLHandler', 'PnL changed', { type: data.type, amount: data.amount, symbol: data.symbol }, true);
   }
 }
 ```
