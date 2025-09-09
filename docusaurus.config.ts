@@ -116,12 +116,16 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
+            label: 'System Installation',
+              to: '/docs/installation/',
+            },
+            {
               label: 'JT-Lib',
               to: '/docs/jt-lib/introduction-architecture',
             },
             {
               label: 'JT-Trader',
-              to: '/docs/jt-trader/getting-started,
+              to: '/docs/jt-trader/getting-started',
             },
             {
               label: 'Triggers',
