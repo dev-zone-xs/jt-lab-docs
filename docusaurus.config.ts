@@ -103,7 +103,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/dev-zone-xs/jt-lab-docs',
+          href: 'https://github.com/jt-lab-com/jt-trader',
           label: 'GitHub',
           position: 'right',
         },
