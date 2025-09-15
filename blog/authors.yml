@@ -1,0 +1,9 @@
+jt-lab-team:
+  name: JT-Lab Team
+  title: Команда разработчиков JT-Lab
+  url: https://jt-lab.com
+  image_url: https://github.com/jt-lab-com.png
+  page: true
+  socials:
+    github: jt-lab-com
+    website: https://jt-lab.com

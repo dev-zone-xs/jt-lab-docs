@@ -1,0 +1,24 @@
+jt-trader:
+  label: JT-Trader
+  permalink: /jt-trader
+  description: Торговая платформа JT-Trader
+
+crypto-bots:
+  label: Крипто-боты
+  permalink: /crypto-bots
+  description: Торговые боты для криптовалют
+
+trading:
+  label: Трейдинг
+  permalink: /trading
+  description: Алгоритмическая торговля
+
+automation:
+  label: Автоматизация
+  permalink: /automation
+  description: Автоматизация торговых процессов
+
+blockchain:
+  label: Блокчейн
+  permalink: /blockchain
+  description: Технологии блокчейн и криптовалюты
