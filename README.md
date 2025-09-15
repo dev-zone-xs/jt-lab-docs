@@ -94,7 +94,7 @@ interface ImagePreviewProps {
 ```
 
 #### Standalone JavaScript (`src/js/image-preview.js`)
-Чистый JavaScript файл, который можно использовать независимо от React.
+Чистый JavaScript файл, который можно использовать независимо от React. 
 
 #### Интеграция в Layout (`src/theme/Layout/index.tsx`)
 ```typescript
