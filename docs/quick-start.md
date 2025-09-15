@@ -88,7 +88,7 @@ sidebar_label: Быстрый старт
 
 ### Для трейдеров
 
-[Настройка бирж](/docs/jt-trader/configuration) (подключение реальных бирж), [использование](/docs/jt-trader/usage) (интерфейс платформы) и [Runtime](/docs/jt-trader/runtime) (запуск торговых роботов).
+[Настройка бирж](/docs/jt-trader/configuration) (подключение реальных бирж), [использование](/docs/jt-trader/getting-started) (интерфейс платформы) и [Runtime](/docs/jt-trader/runtime-overview) (запуск торговых роботов).
 
 ## Полезные советы
 

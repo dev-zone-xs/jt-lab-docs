@@ -64,8 +64,18 @@ JT-Trader можно установить тремя способами в за�
 | Операционная система | Ссылка для скачивания |
 |---------------------|----------------------|
 | **Windows** | [JT-Trader-Launcher-Setup.exe](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher-Setup.exe) |
-| **macOS (Intel)** | [JT-Trader-Launcher.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher.dmg) |
-| **macOS (Apple Silicon)** | [JT-Trader-Launcher-arm64.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher-arm64.dmg) |
+| **macOS (Intel)** | [JT-Trader-Launcher.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher.dmg) * |
+| **macOS (Apple Silicon)** | [JT-Trader-Launcher-arm64.dmg](https://jt-launcher.fra1.cdn.digitaloceanspaces.com/releases/latest/JT-Trader-Launcher-arm64.dmg) * |
+
+:::important Требования для macOS
+После установки приложения на macOS необходимо снять карантин, выполнив команду в терминале:
+
+```bash
+sudo xattr -rd com.apple.quarantine "/Applications/JT-Trader Launcher.app"
+```
+
+Это необходимо для корректной работы приложения на macOS.
+:::
 
 ### Установка
 
@@ -97,14 +107,14 @@ Docker обеспечивает изолированную среду для з�
 #### Windows
 
 1. Создайте рабочую директорию для приложения
-2. Скачайте файл `setup-windows.bat` и поместите его в рабочую директорию
+2. Скачайте файл [setup-windows.bat](https://github.com/jt-lab-com/jt-trader/blob/main/docker/setup-windows.bat) и поместите его в рабочую директорию
 3. Запустите `setup-windows.bat`
 4. После завершения установки откройте браузер и перейдите по адресу: `http://localhost:8080/`
 
 #### Linux / macOS
 
 1. Создайте рабочую директорию для приложения
-2. Скачайте файл `setup.sh` и поместите его в рабочую директорию
+2. Скачайте файл [setup.sh](https://github.com/jt-lab-com/jt-trader/blob/main/docker/setup.sh) и поместите его в рабочую директорию
 3. Откройте терминал, перейдите в рабочую директорию и выполните:
 
 ```bash
@@ -116,6 +126,7 @@ bash setup.sh
 ---
 
 ## 3. Прямая установка из GitHub
+📦 **GitHub репозиторий:** [jt-lab-com/jt-trader](https://github.com/jt-lab-com/jt-trader)
 
 Для разработчиков и продвинутых пользователей, которые хотят полный контроль над процессом установки. Этот способ необходим, если вы планируете разрабатывать собственных торговых роботов или модифицировать исходный код.
 

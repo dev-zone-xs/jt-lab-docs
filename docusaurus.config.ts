@@ -81,8 +81,9 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
+
         {
-          href: 'https://github.com/dev-zone-xs/jt-lab-docs',
+          href: 'https://github.com/jt-lab-com/jt-trader',
           label: 'GitHub',
           position: 'right',
         },
@@ -95,16 +96,20 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
+            label: 'System Installation',
+              to: '/docs/installation/',
+            },
+            {
               label: 'JT-Lib',
-              to: '/docs/jt-lib/getting-started',
+              to: '/docs/jt-lib/introduction-architecture',
             },
             {
               label: 'JT-Trader',
-              to: '/docs/jt-trader/jt-trader-getting-started',
+              to: '/docs/jt-trader/getting-started',
             },
             {
               label: 'Triggers',
-              to: '/docs/jt-lib/triggers/order-trigger',
+              to: '/docs/jt-lib/triggers-system',
             },
           ],
         },
@@ -132,10 +137,7 @@ const config: Config = {
               label: 'GitHub Docs',
               href: 'https://github.com/dev-zone-xs/jt-lab-docs',
             },
-            {
-              label: 'Issues',
-              href: 'https://github.com/dev-zone-xs/jt-lab-docs/issues',
-            },
+
           ],
         },
       ],
