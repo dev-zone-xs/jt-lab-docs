@@ -2,9 +2,11 @@
 slug: opening-orders-complete-guide
 title: Полное руководство по открытию ордеров в JT-Lib
 authors: [jt-lab-team]
-tags: [jt-lib, orders, trading, automation, orders-basket, market-orders, limit-orders, stop-loss, take-profit, tutorial, complete-guide]
+tags: [tutorial, jt-lib, trading]
 draft: false
 ---
+
+<!-- truncate -->
 
 # Полное руководство по открытию ордеров в JT-Lib
 

@@ -22,3 +22,13 @@ blockchain:
   label: Блокчейн
   permalink: /blockchain
   description: Технологии блокчейн и криптовалюты
+
+tutorial:
+  label: Руководство
+  permalink: /tutorial
+  description: Пошаговые руководства и туториалы
+
+jt-lib:
+  label: JT-Lib
+  permalink: /jt-lib
+  description: Библиотека для разработки торговых стратегий
