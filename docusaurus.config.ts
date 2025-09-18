@@ -72,6 +72,8 @@ const config: Config = {
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
+          // Сортируем статьи по дате в убывающем порядке (новые сначала)
+          sortPosts: 'descending',
         },
         theme: {
           customCss: './src/css/custom.css',
