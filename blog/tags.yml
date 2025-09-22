@@ -32,3 +32,8 @@ jt-lib:
   label: JT-Lib
   permalink: /jt-lib
   description: Библиотека для разработки торговых стратегий
+
+detailed-guide:
+  label: Подробное руководство
+  permalink: /detailed-guide
+  description: Детальные руководства и инструкции

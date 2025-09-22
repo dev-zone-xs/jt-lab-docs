@@ -4,6 +4,7 @@ title: JT-Trader - Полное руководство по алгоритмич
 authors: [jt-lab-team]
 tags: [jt-trader, crypto-bots, trading, automation, blockchain, detailed-guide, tutorial]
 draft: false
+date: 2025-09-15
 ---
 
 # JT-Trader: Полный обзор платформы для алгоритмической торговли

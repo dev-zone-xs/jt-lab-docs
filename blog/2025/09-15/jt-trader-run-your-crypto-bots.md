@@ -3,6 +3,7 @@ slug: jt-trader-run-your-crypto-bots
 title: JT-Trader - Запускайте ваших крипто-ботов
 authors: [jt-lab-team]
 tags: [jt-trader, crypto-bots, trading, automation, blockchain]
+date: 2025-09-15
 ---
 
 # JT-Trader: Открытая платформа для алгоритмической торговли
