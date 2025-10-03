@@ -1,6 +1,6 @@
 ---
 slug: grid-bot-strategy
-title: Грид-бот: Автоматическая стратегия усреднения позиций
+title: "Грид-бот: Автоматическая стратегия усреднения позиций"
 authors: [jt-lab-team]
 tags: [grid-bot, trading-strategy, crypto-bots, automation, jt-trader, grid-trading, dca]
 draft: false
