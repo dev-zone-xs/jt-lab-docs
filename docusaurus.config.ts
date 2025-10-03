@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'JT-Lib & JT-Trader Documentation',
-  tagline: 'JavaScript Trading Libraries Documentation',
+  title: 'JT-Lab & JT-Trader Документация',
+  tagline: 'Документация по JavaScript торговым библиотекам',
   favicon: 'img/favicon.ico',
 
   // To match the URL structure on GitHub Pages
@@ -86,7 +86,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'JT-Lib',
+      title: 'JT-Lab',
       logo: {
         alt: 'JT-Lib Logo',
         src: 'img/logo.svg',
@@ -96,9 +96,9 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Documentation',
+          label: 'Документация',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/blog', label: 'Блог', position: 'left'},
 
         {
           href: 'https://github.com/jt-lab-com/jt-trader',
